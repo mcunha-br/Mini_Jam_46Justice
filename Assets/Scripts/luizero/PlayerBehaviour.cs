@@ -14,74 +14,69 @@ public class PlayerBehaviour : MonoBehaviour
 	[SerializeField] float fallMultiplier;
 
 	Rigidbody2D rb;
+	Animator anim;
+
+	void Awake()
+	{
+		rb = GetComponent<Rigidbody2D>();
+		anim = GetComponentInChildren<Animator>();
+	}
 
     void Start()
     {
-		rb = GetComponent<Rigidbody2D>();
-    }
+		dead = false;
+	}
 
 	void Update()
 	{
-		if(canMoveInAir)
-		Move();
-		Jump();
+		if(!dead)
+		{
+			//if (canMoveInAir)
+				Move();
 
+			Jump();
+		}
 		//canMoveInAir = true;
-		ground = Grounded();
 	}
-
-	public bool ground;
 
 	void Move()
 	{
 		float x = Input.GetAxis("Horizontal");
-
 		rb.velocity = new Vector2(x * movementSpeed, rb.velocity.y);
+
+		if (x > 0)
+			transform.eulerAngles = new Vector3(0, 0, 0);
+		if (x < 0)
+			transform.eulerAngles = new Vector3(0, 180, 0);
+		
+		anim.SetBool("moving", x != 0);
 	}
+
+	bool grounded;
 
 	void Jump()
 	{
-		if (Grounded() && Input.GetButtonDown("Jump"))
+		grounded = Physics2D.OverlapBox(jumpBoxTransform.position, jumpBoxTransform.localScale, 0f, rayCastLayer);
+
+		if (grounded && Input.GetButtonDown("Jump"))
 			rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
 
 		if (rb.velocity.y < 0)
 		{
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
 		}
-		
+
+		anim.SetBool("grounded", grounded);
 	}
 
-	bool Grounded()
-	{
-		return Physics2D.OverlapBox(jumpBoxTransform.position, jumpBoxTransform.localScale, 0f, rayCastLayer);
-		//return Physics2D.BoxCast(raycastTransform.position, groundCheckBoxSize, 0f, Vector2.down, groundCheckRange);
-		//return Physics2D.Raycast(raycastTransform.position, Vector2.down * groundCheckSize);
-	}
+	bool dead;
 
 	public void Damage(int damageValue)
 	{
+		if (life <= 0)
+			dead = true;
+
 		life -= damageValue;
 	}
 
-	public bool canMoveInAir;
-
-	void OnCollisionStay2D(Collision2D other)
-	{
-		if (Grounded())
-			canMoveInAir = true;
-		else
-		if (!Grounded())
-		{
-			canMoveInAir = false;
-			Debug.Log("asd");
-			return;
-		}
-
-	}
-
-	void OnCollisionExit2D(Collision2D other)
-	{		
-			canMoveInAir = true;
-		Debug.Log("tru");
-	}
 }
