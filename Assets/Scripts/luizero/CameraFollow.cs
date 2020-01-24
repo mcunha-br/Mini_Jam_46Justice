@@ -11,14 +11,16 @@ public class CameraFollow : MonoBehaviour
 	[SerializeField] Vector2 sightBoxSize;
 
 	void Awake()
-    {
-        player = FindObjectOfType<PlayerBehaviour>();
-    }
+	{
+		if (player == null)
+			player = FindObjectOfType<PlayerBehaviour>();
+	}
 
     void LateUpdate()
     {
-		//bool inRange = player.transform.position < transform.position + sightBoxSize.x/2;
+		bool inRange = player.transform.position.x > transform.position.x - sightBoxSize.x/2 && player.transform.position.x < transform.position.x + sightBoxSize.x / 2;
 
-		transform.position = Vector3.Lerp(transform.position, player.transform.position + playerOffset, speed * Time.deltaTime);
+		if (!inRange)
+			transform.position = Vector3.Lerp(transform.position, player.transform.position + playerOffset, speed * Time.deltaTime);
     }
 }
