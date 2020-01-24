@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	[SerializeField] Slider lifebar;
 	[SerializeField] Transform jumpBoxTransform;
 	[SerializeField] LayerMask rayCastLayer;
 	[SerializeField] float groundCheckRange = .25f;
 	[Space]
 	[SerializeField] int life = 100;
-	[SerializeField] float movementSpeed;
-	[SerializeField] float jumpVelocity;
-	[SerializeField] float fallMultiplier;
+	[SerializeField] float movementSpeed = 8f;
+	[SerializeField] float jumpVelocity = 10f;
+	[SerializeField] float fallMultiplier = 2.5f;
 
 	Rigidbody2D rb;
 	Animator anim;
@@ -20,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponentInChildren<Animator>();
+
+		lifebar.value = life;
 	}
 
     void Start()
@@ -27,21 +31,29 @@ public class PlayerBehaviour : MonoBehaviour
 		dead = false;
 	}
 
+	float inputX;
+	bool jump;
+
 	void Update()
+	{
+		inputX = Input.GetAxis("Horizontal");
+		jump = Input.GetButtonDown("Jump");
+
+		if (Input.GetKeyDown(KeyCode.K))
+			Damage(10);
+	}
+
+	void FixedUpdate()
 	{
 		if(!dead)
 		{
-			//if (canMoveInAir)
-				Move();
-
-			Jump();
+			Move(inputX);
+			Jump(jump);
 		}
-		//canMoveInAir = true;
 	}
 
-	void Move()
-	{
-		float x = Input.GetAxis("Horizontal");
+	void Move(float x)
+	{		
 		rb.velocity = new Vector2(x * movementSpeed, rb.velocity.y);
 
 		if (x > 0)
@@ -54,11 +66,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 	bool grounded;
 
-	void Jump()
+	void Jump(bool jumpButton)
 	{
 		grounded = Physics2D.OverlapBox(jumpBoxTransform.position, jumpBoxTransform.localScale, 0f, rayCastLayer);
 
-		if (grounded && Input.GetButtonDown("Jump"))
+		if (grounded && jumpButton)
 			rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
 
 		if (rb.velocity.y < 0)
@@ -77,6 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
 			dead = true;
 
 		life -= damageValue;
+		lifebar.value = life;
 	}
 
 }
