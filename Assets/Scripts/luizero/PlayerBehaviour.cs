@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerBehaviour : MonoBehaviour
 {
+	[SerializeField] Slider lifebar;
 	[SerializeField] Transform jumpBoxTransform;
 	[SerializeField] LayerMask rayCastLayer;
 	[SerializeField] float groundCheckRange = .25f;
 	[Space]
 	[SerializeField] int life = 100;
-	[SerializeField] float movementSpeed;
-	[SerializeField] float jumpVelocity;
-	[SerializeField] float fallMultiplier;
+	[SerializeField] float movementSpeed = 8f;
+	[SerializeField] float jumpVelocity = 10f;
+	[SerializeField] float fallMultiplier = 2.5f;
 
 	Rigidbody2D rb;
 	Animator anim;
@@ -20,6 +22,8 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		rb = GetComponent<Rigidbody2D>();
 		anim = GetComponentInChildren<Animator>();
+
+		lifebar.value = life;
 	}
 
     void Start()
@@ -34,6 +38,9 @@ public class PlayerBehaviour : MonoBehaviour
 	{
 		inputX = Input.GetAxis("Horizontal");
 		jump = Input.GetButtonDown("Jump");
+
+		if (Input.GetKeyDown(KeyCode.K))
+			Damage(10);
 	}
 
 	void FixedUpdate()
@@ -82,6 +89,7 @@ public class PlayerBehaviour : MonoBehaviour
 			dead = true;
 
 		life -= damageValue;
+		lifebar.value = life;
 	}
 
 }
