@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442211970064245175}
   - component: {fileID: 2483577130915603192}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: gun (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 1391844129078848093}
   - component: {fileID: 3442075011826099579}
   - component: {fileID: 2551721797722741095}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -321,7 +321,7 @@ MonoBehaviour:
   jumpBoxTransform: {fileID: 4569480960086014226}
   rayCastLayer:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 311
   life: 100
   movementSpeed: 8
   jumpVelocity: 10
@@ -557,7 +557,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2254228759079640651}
   - component: {fileID: 1509782954739751098}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +638,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4409328745928537816}
   - component: {fileID: 6099009299916495478}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: shootSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -719,7 +719,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1330651190885318355}
   - component: {fileID: 1395697185847376269}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -874,7 +874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4569480960086014226}
   - component: {fileID: 4044486773736250340}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: groundCheckBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1055,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2681743399380896147}
   - component: {fileID: 8942221318235459991}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Graphics
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1582,7 +1582,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5797856932618290325}
   - component: {fileID: 6543127065223347153}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1663,7 +1663,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6800223823375837344}
   - component: {fileID: 1114710748438412966}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
