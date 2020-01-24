@@ -1949,6 +1949,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2551721797722741095, guid: 8b0d12b6a667da44c8a92af10adad938,
+        type: 3}
+      propertyPath: lowJumpMultiplier
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4044486773736250340, guid: 8b0d12b6a667da44c8a92af10adad938,
         type: 3}
       propertyPath: m_Enabled

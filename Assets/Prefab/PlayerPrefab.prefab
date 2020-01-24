@@ -321,12 +321,13 @@ MonoBehaviour:
   jumpBoxTransform: {fileID: 4569480960086014226}
   rayCastLayer:
     serializedVersion: 2
-    m_Bits: 256
-  groundCheckRange: 0.25
+    m_Bits: 1
   life: 100
   movementSpeed: 8
   jumpVelocity: 10
   fallMultiplier: 2
+  lowJumpMultiplier: 3
+  jump: 0
 --- !u!1 &2083530141845803815
 GameObject:
   m_ObjectHideFlags: 0
