@@ -52,10 +52,10 @@ public class Enemy : AI, IEnemy {
 			}
 			if(target){
 				if (target.position.x < transform.position.x){
-				   print("Player left");
+				   //print("Player left");
 				   directionState = DirectionState.LEFT;
 				}else{
-				   print("Player right");
+				   //print("Player right");
 				   directionState = DirectionState.RIGHT;
 				}
 			}
