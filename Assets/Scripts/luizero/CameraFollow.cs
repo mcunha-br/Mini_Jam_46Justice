@@ -14,13 +14,25 @@ public class CameraFollow : MonoBehaviour
 	{
 		if (player == null)
 			player = FindObjectOfType<PlayerBehaviour>();
-	}
+	}	
 
     void LateUpdate()
     {
-		bool inRange = player.transform.position.x > transform.position.x - sightBoxSize.x/2 && player.transform.position.x < transform.position.x + sightBoxSize.x / 2;
+		Vector3 playerPos = player.transform.position;
+		Vector3 pos = transform.position;
 
-		if (!inRange)
-			transform.position = Vector3.Lerp(transform.position, player.transform.position + playerOffset, speed * Time.deltaTime);
+		bool inRangeX = playerPos.x > pos.x - sightBoxSize.x / 2 && playerPos.x < pos.x + sightBoxSize.x / 2;
+		bool inRangeY = playerPos.y > pos.y - sightBoxSize.y / 2 && playerPos.y < pos.y + sightBoxSize.y / 2;
+
+		Vector3 newPosition = transform.position;
+
+		if (!inRangeX)
+			newPosition.x = playerPos.x;
+		if (!inRangeY)
+			newPosition.y = playerPos.y;
+		newPosition.z = 0;
+
+
+		transform.position = Vector3.Lerp(pos, newPosition + playerOffset, speed * Time.deltaTime);
     }
 }
