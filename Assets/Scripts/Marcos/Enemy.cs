@@ -45,8 +45,7 @@ public class Enemy : AI, IEnemy {
 				}
 			}
 			if(playerDetected && runAttack){
-				print("Player atacado!");
-				AtackPlayer();
+				StartCoroutine(AtackPlayer());
 			}
 		}
     }
@@ -93,6 +92,7 @@ public class Enemy : AI, IEnemy {
     private IEnumerator AtackPlayer () {
     	if(target){
     		yield return new WaitForSeconds(atackRate);
+    		print("Player atacado!");
  			//Code atack player;
     	}
     	StopAllCoroutines();
