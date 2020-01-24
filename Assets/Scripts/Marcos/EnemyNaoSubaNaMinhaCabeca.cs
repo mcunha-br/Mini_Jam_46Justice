@@ -36,6 +36,7 @@ public class EnemyNaoSubaNaMinhaCabeca : MonoBehaviour {
     			target.GetComponent<PlayerBehaviour>().Damage(10);
     		}
     	}
+    	CancelInvoke();
     }
 
     void OnTriggerEnter2D (Collider2D col) {
