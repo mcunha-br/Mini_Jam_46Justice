@@ -27,12 +27,9 @@ public class PlayerBehaviour : MonoBehaviour
 
 	}
 
-	
-
     void Start()
     {
-		dead = false;
-			
+		dead = false;			
 	}
 
 	float inputX;
