@@ -19,7 +19,7 @@ public class Enemy : AI, IEnemy {
 	private byte direction;
 	private float countdown = 0f;
 	private float turnSecondsDir;
-	private float radiusDetectPlayerDistance = 10f;
+	private float radiusDetectPlayerDistance = 15f;
 	private bool playerDetected;
 	private Transform target;
 	private float attackDistance = 10f;
