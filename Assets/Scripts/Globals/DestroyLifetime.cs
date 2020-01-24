@@ -6,10 +6,10 @@ public class DestroyLifetime : MonoBehaviour {
 
     private DestroyLifetime () {}
 
-    public float lifetime = 5f;
+    public float lifetime = 2f;
      
     private void  Awake (){
-        Destroy(this, lifetime);
+        DestroyObject(gameObject, lifetime);
     }
 
     private void Start()  {
