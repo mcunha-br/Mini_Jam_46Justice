@@ -34,6 +34,9 @@ public class BulletTest : MonoBehaviour {
     		}
     		DestroyObject(gameObject);
     	}
+        if(col.gameObject.tag == "Ground" || col.gameObject.name == "Ground"){
+            DestroyObject(gameObject);
+        }
     }
 
     private BulletTest GetBulletTest () {

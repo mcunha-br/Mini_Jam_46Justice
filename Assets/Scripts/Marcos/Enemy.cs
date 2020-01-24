@@ -8,6 +8,9 @@ public class Enemy : AI, IEnemy {
 	public bool isDead = false;
 	public EnemyStats stats;
 
+    [Header("Level Difficulty")]
+    public EnemyDifficulty difficulty;
+
 	[Header("Axis State Patrol")]
 	public DirectionState directionState;
 	public EnemyRayCollider[] rayColliders = new EnemyRayCollider[2];
@@ -59,7 +62,13 @@ public class Enemy : AI, IEnemy {
 				}
 			}
 			if(playerDetected && runAttack){
-				 InvokeRepeating("AtackPlayer", .5f, 0.3f);
+                if(difficulty == EnemyDifficulty.EASY){
+				    InvokeRepeating("AtackPlayer", 1.3f, 0.3f);
+                }else if(difficulty == EnemyDifficulty.MEDIUM){
+                    InvokeRepeating("AtackPlayer", 8f, 0.3f);
+                }else if(difficulty == EnemyDifficulty.HARD){
+                    InvokeRepeating("AtackPlayer", .4f, 0.3f);
+                }
 			}
 			if(target){
 				if (target.position.x < transform.position.x){
@@ -216,4 +225,8 @@ public class EnemyStats {
 public interface IEnemy {
 	void Demage(int dmg);
 	void Die();
+}
+
+public enum EnemyDifficulty {
+    EASY, MEDIUM, HARD
 }
