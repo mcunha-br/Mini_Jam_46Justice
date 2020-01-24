@@ -6,7 +6,7 @@ public class Enemy : AI {
 
 	private const string playerTag = "Player";
 
-    private Enemy () {}
+    protected Enemy () {}
 
     private void Start()  {
         
@@ -17,10 +17,10 @@ public class Enemy : AI {
     }
 
     public override void Patrol () {
-    	
+
     }
 
-    private Enemy GetEnemy () {return this;}
-    private string GetTargetTag () {return playerTag;}
+    public Enemy GetEnemy () {return this;}
+    public string GetTargetTag () {return playerTag;}
 
 }
