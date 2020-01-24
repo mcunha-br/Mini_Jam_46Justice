@@ -24,23 +24,46 @@ public class PlayerBehaviour : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 
 		lifebar.value = life;
+
 	}
+
+	
 
     void Start()
     {
 		dead = false;
+			
 	}
 
 	float inputX;
-	bool jump;
+	public bool jump;
 
 	void Update()
 	{
 		inputX = Input.GetAxis("Horizontal");
-		jump = Input.GetButtonDown("Jump");
+		//jump = Input.GetButtonDown("Jump");
+
+		if (Input.GetButtonDown("Jump"))
+		{
+			jump = true;
+
+			if (jumpCoroutine != null)
+				StopCoroutine(jumpCoroutine);
+
+			jumpCoroutine = JumpDelay(0.25f);
+			StartCoroutine(jumpCoroutine);
+		}
 
 		if (Input.GetKeyDown(KeyCode.K))
 			Damage(10);
+	}
+
+	IEnumerator jumpCoroutine;
+
+	IEnumerator JumpDelay(float delay)
+	{
+		yield return new WaitForSeconds(delay);
+		jump = false;
 	}
 
 	void FixedUpdate()
