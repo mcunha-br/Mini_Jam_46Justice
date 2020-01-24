@@ -7,10 +7,12 @@ public class SpikeController : MonoBehaviour {
     public Transform spike;
     public Transform A, B;
 
+    private AudioSource source;
     private Vector3 target;
     private float timer;
 
     private void Start() {
+        source = GetComponent<AudioSource>();
         target = A.position;
     }
 
@@ -23,6 +25,7 @@ public class SpikeController : MonoBehaviour {
         if(timer >= countdown && spike.position == target) {
             timer = 0;
             target = (target == B.position) ? A.position : B.position;
+            source.Play();
         }
     }
 
