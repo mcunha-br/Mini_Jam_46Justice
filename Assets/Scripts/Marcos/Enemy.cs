@@ -10,6 +10,7 @@ public class Enemy : AI, IEnemy {
 
 	[Header("Axis State Patrol")]
 	public DirectionState directionState;
+	public EnemyRayCollider[] rayColliders = new EnemyRayCollider[2];
 
 	[Header("Bullet")]
 	public GameObject bulletObject;
@@ -24,6 +25,7 @@ public class Enemy : AI, IEnemy {
 	private Transform target;
 	private float attackDistance = 5f;
 	private bool runAttack = false;
+	private float jumpForce = 5f;
 
     protected Enemy () {}
 
@@ -39,16 +41,26 @@ public class Enemy : AI, IEnemy {
     private void PatrollingAI () {
     	if(!isDead){
 	    	if(inPatrolling){
-	    		if(direction %2 == 0){
-					Patrol(Vector3.right);
-					directionState = DirectionState.RIGHT;
+		    	if(direction %2 == 0){
+		    		//if(rayColliders[0].grounded && rayColliders[1].grounded){
+						//Patrol(Vector3.left);
+						//directionState = DirectionState.LEFT;
+					//}else{
+						Patrol(Vector3.right);
+						directionState = DirectionState.RIGHT;
+					//}
 				}else{
-					Patrol(Vector3.left);
-					directionState = DirectionState.LEFT;
+					//if(rayColliders[0].grounded && rayColliders[1].grounded){
+						//Patrol(Vector3.right);
+						//directionState = DirectionState.RIGHT;
+					//}else{
+						Patrol(Vector3.left);
+						directionState = DirectionState.LEFT;
+					//}
 				}
 			}
 			if(playerDetected && runAttack){
-				StartCoroutine(AtackPlayer());
+				 InvokeRepeating("AtackPlayer", 1.0f, 0.3f);
 			}
 			if(target){
 				if (target.position.x < transform.position.x){
@@ -59,7 +71,31 @@ public class Enemy : AI, IEnemy {
 				   directionState = DirectionState.RIGHT;
 				}
 			}
+			if(!rayColliders[0].grounded && rayColliders[1].grounded){
+				Jump();
+			}
 		}
+    }
+
+    private void Jump () {
+    	if(directionState == DirectionState.RIGHT){
+    		StartCoroutine(JumpStep(Vector3.right));
+    	}else if (directionState == DirectionState.LEFT){
+    		StartCoroutine(JumpStep(Vector3.left));
+    	}
+    }
+
+    bool jupping = false;
+    private IEnumerator JumpStep (Vector3 axis) {
+    	jupping = true;
+    	if(jupping){
+	    	yield return new WaitForSeconds(0f);
+	    	GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
+	    	yield return new WaitForSeconds(1f);
+	    	GetComponent<Rigidbody2D>().AddForce(Vector3.up + axis);
+	    	jupping = false;
+    	}
+    	StopCoroutine("JumpStep");
     }
 
     private void SetupPatrol () {
@@ -77,7 +113,9 @@ public class Enemy : AI, IEnemy {
 
     public override void Patrol (Vector2 dir) {
     	if(!playerDetected){
-	    	transform.Translate((dir * GetSpeed()) * Time.deltaTime);
+    		//if(!rayColliders[0].grounded && rayColliders[1].grounded){
+	    		transform.Translate((dir * GetSpeed()) * Time.deltaTime);
+	    	//}
 	    	countdown++;
 	    	if(countdown >= turnSecondsDir * 100){
 	    		countdown = 0f;
@@ -86,7 +124,7 @@ public class Enemy : AI, IEnemy {
 	    	}
     	}else{
     		if(Vector2.Distance(transform.position, target.position) > attackDistance){
-    			transform.position = Vector3.Lerp(transform.position, target.position, GetSpeed() * Time.deltaTime);
+    			transform.position = Vector3.Lerp(transform.position, target.position, GetSpeed() * 0.2f * Time.deltaTime);
     			runAttack = false;
     		}else{
     			runAttack = true;
@@ -97,24 +135,21 @@ public class Enemy : AI, IEnemy {
     private IEnumerator WaitPatrolling () {
     	yield return new WaitForSeconds(2f);
     	SetupPatrol();
-    	StopAllCoroutines();
+    	StopCoroutine("WaitPatrolling");
     }
 
-    float atackRate = 0.5f;
-    private IEnumerator AtackPlayer () {
+    private void AtackPlayer () {
     	if(target){
-    		yield return new WaitForSeconds(atackRate);
-    		//print("Player atacado!");
     		if(directionState == DirectionState.RIGHT){
     			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
     			b.gameObject.GetComponent<BulletTest>().inverse = false;
+    			CancelInvoke();
     		}else if (directionState == DirectionState.LEFT){
     			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
     			b.gameObject.GetComponent<BulletTest>().inverse = true;
+    			CancelInvoke();
     		}
- 			//Code atack player;
     	}
-    	StopAllCoroutines();
     }
 
     public void Demage (int dmg) {
@@ -144,7 +179,6 @@ public class Enemy : AI, IEnemy {
     		countdown = 0f;
 	    	inPatrolling = true;
     		playerDetected = false;
-    		StopAllCoroutines();
     	}
     }
 
