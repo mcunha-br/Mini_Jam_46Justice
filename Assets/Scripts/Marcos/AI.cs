@@ -10,7 +10,7 @@ public abstract class AI : MonoBehaviour {
 
 	private byte[] _distancePatrol = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 	private float[] _secondsPatrolDir = {5, 6, 7, 8, 9};
-	private float speed = 1.2f;
+	private float speed = 2.2f;
 
     public abstract void Patrol (Vector2 dir);
 

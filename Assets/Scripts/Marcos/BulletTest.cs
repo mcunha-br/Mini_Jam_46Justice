@@ -9,7 +9,16 @@ public class BulletTest : MonoBehaviour {
 
 	[HideInInspector] public bool inverse = false;
 
+    private Vector2 moveDirection;
+
     private BulletTest () {}
+
+    private void Start () {
+        Rigidbody2D rb = GetComponent<Rigidbody2D> ();
+        Transform target = GameObject.FindWithTag("Player").transform;
+        moveDirection = (target.position - transform.position).normalized * speed;
+        rb.velocity = new Vector2 (moveDirection.x, moveDirection.y);
+    }
 
     private void Update() {
     	if(!inverse)

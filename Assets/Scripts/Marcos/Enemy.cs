@@ -19,13 +19,12 @@ public class Enemy : AI, IEnemy {
 	private byte direction;
 	private float countdown = 0f;
 	private float turnSecondsDir;
-	private float detectPlayerDistance = 3f;
-	private float radiusDetectPlayerDistance = 6f;
+	private float radiusDetectPlayerDistance = 10f;
 	private bool playerDetected;
 	private Transform target;
-	private float attackDistance = 5f;
+	private float attackDistance = 10f;
 	private bool runAttack = false;
-	private float jumpForce = 5.5f;
+	private float jumpForce = 6.5f;
 
     protected Enemy () {}
 
@@ -60,7 +59,7 @@ public class Enemy : AI, IEnemy {
 				}
 			}
 			if(playerDetected && runAttack){
-				 InvokeRepeating("AtackPlayer", 1.0f, 0.3f);
+				 InvokeRepeating("AtackPlayer", .5f, 0.3f);
 			}
 			if(target){
 				if (target.position.x < transform.position.x){
@@ -145,7 +144,7 @@ public class Enemy : AI, IEnemy {
     			b.gameObject.GetComponent<BulletTest>().inverse = false;
     			CancelInvoke();
     		}else if (directionState == DirectionState.LEFT){
-    			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
+    			GameObject b = Instantiate(bulletObject, transform.position, Quaternion.identity);
     			b.gameObject.GetComponent<BulletTest>().inverse = true;
     			CancelInvoke();
     		}
