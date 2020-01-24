@@ -25,7 +25,7 @@ public class Enemy : AI, IEnemy {
 	private Transform target;
 	private float attackDistance = 5f;
 	private bool runAttack = false;
-	private float jumpForce = 5f;
+	private float jumpForce = 5.5f;
 
     protected Enemy () {}
 

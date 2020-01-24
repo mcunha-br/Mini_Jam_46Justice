@@ -24,7 +24,6 @@ public abstract class AI : MonoBehaviour {
 
     public float GetSpeed () {return speed;}
 
-
 }
 
 public enum DirectionState {
