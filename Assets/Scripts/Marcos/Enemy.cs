@@ -15,6 +15,12 @@ public class Enemy : AI, IEnemy {
 	private byte direction;
 	private float countdown = 0f;
 	private float turnSecondsDir;
+	private float detectPlayerDistance = 3f;
+	private float radiusDetectPlayerDistance = 3f;
+	private bool playerDetected;
+	private Transform target;
+	private float attackDistance = 1.1f;
+	private bool runAttack = false;
 
     protected Enemy () {}
 
@@ -38,11 +44,17 @@ public class Enemy : AI, IEnemy {
 					directionState = DirectionState.LEFT;
 				}
 			}
+			if(playerDetected && runAttack){
+				print("Player atacado!");
+				AtackPlayer();
+			}
 		}
     }
 
     private void SetupPatrol () {
     	inPatrolling = true;
+    	GetComponent<CircleCollider2D>().radius = radiusDetectPlayerDistance;
+    	GetComponent<CircleCollider2D>().isTrigger = true;
     	direction = GetNewDirectionPatrol();
     	turnSecondsDir = GetNewSecondPatrolDir();
     }
@@ -53,18 +65,36 @@ public class Enemy : AI, IEnemy {
     }
 
     public override void Patrol (Vector2 dir) {
-    	transform.Translate((dir * GetSpeed()) * Time.deltaTime);
-    	countdown++;
-    	if(countdown >= turnSecondsDir * 100){
-    		countdown = 0f;
-    		inPatrolling = false;
-    		StartCoroutine(WaitPatrolling());
+    	if(!playerDetected){
+	    	transform.Translate((dir * GetSpeed()) * Time.deltaTime);
+	    	countdown++;
+	    	if(countdown >= turnSecondsDir * 100){
+	    		countdown = 0f;
+	    		inPatrolling = false;
+	    		StartCoroutine(WaitPatrolling());
+	    	}
+    	}else{
+    		if(Vector2.Distance(transform.position, target.position) > attackDistance){
+    			transform.position = Vector3.Lerp(transform.position, target.position, GetSpeed() * Time.deltaTime);
+    			runAttack = false;
+    		}else{
+    			runAttack = true;
+    		}
     	}
     }
 
     private IEnumerator WaitPatrolling () {
     	yield return new WaitForSeconds(2f);
     	SetupPatrol();
+    	StopAllCoroutines();
+    }
+
+    float atackRate = 0.5f;
+    private IEnumerator AtackPlayer () {
+    	if(target){
+    		yield return new WaitForSeconds(atackRate);
+ 			//Code atack player;
+    	}
     	StopAllCoroutines();
     }
 
@@ -79,6 +109,23 @@ public class Enemy : AI, IEnemy {
     	isDead = true;
     	countdown = 0f;
     	stats.SetHealth(0);
+    }
+
+    void OnTriggerEnter2D (Collider2D col) {
+    	if(col.gameObject.tag == playerTag){
+    		playerDetected = true;
+    		target = col.transform;
+    		print("Player detectado!");
+    	}
+    }
+
+    void OnTriggerExit2D (Collider2D col) {
+    	if(col.gameObject.tag == playerTag){
+    		target = null;
+    		countdown = 0f;
+	    	inPatrolling = true;
+    		playerDetected = false;
+    	}
     }
 
     public Enemy GetEnemy () {return this;}
