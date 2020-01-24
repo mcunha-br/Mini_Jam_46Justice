@@ -11,15 +11,18 @@ public class Enemy : AI, IEnemy {
 	[Header("Axis State Patrol")]
 	public DirectionState directionState;
 
+	[Header("Bullet")]
+	public GameObject bulletObject;
+
 	private const string playerTag = "Player";
 	private byte direction;
 	private float countdown = 0f;
 	private float turnSecondsDir;
 	private float detectPlayerDistance = 3f;
-	private float radiusDetectPlayerDistance = 3f;
+	private float radiusDetectPlayerDistance = 6f;
 	private bool playerDetected;
 	private Transform target;
-	private float attackDistance = 1.1f;
+	private float attackDistance = 5f;
 	private bool runAttack = false;
 
     protected Enemy () {}
@@ -46,6 +49,15 @@ public class Enemy : AI, IEnemy {
 			}
 			if(playerDetected && runAttack){
 				StartCoroutine(AtackPlayer());
+			}
+			if(target){
+				if (target.position.x < transform.position.x){
+				   print("Player left");
+				   directionState = DirectionState.LEFT;
+				}else{
+				   print("Player right");
+				   directionState = DirectionState.RIGHT;
+				}
 			}
 		}
     }
@@ -92,7 +104,14 @@ public class Enemy : AI, IEnemy {
     private IEnumerator AtackPlayer () {
     	if(target){
     		yield return new WaitForSeconds(atackRate);
-    		print("Player atacado!");
+    		//print("Player atacado!");
+    		if(directionState == DirectionState.RIGHT){
+    			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
+    			b.gameObject.GetComponent<BulletTest>().inverse = false;
+    		}else if (directionState == DirectionState.LEFT){
+    			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
+    			b.gameObject.GetComponent<BulletTest>().inverse = true;
+    		}
  			//Code atack player;
     	}
     	StopAllCoroutines();
@@ -115,7 +134,7 @@ public class Enemy : AI, IEnemy {
     	if(col.gameObject.tag == playerTag){
     		playerDetected = true;
     		target = col.transform;
-    		print("Player detectado!");
+    		//print("Player detectado!");
     	}
     }
 
@@ -125,6 +144,7 @@ public class Enemy : AI, IEnemy {
     		countdown = 0f;
 	    	inPatrolling = true;
     		playerDetected = false;
+    		StopAllCoroutines();
     	}
     }
 
