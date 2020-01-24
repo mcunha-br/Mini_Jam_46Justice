@@ -14,9 +14,11 @@ public class CameraFollow : MonoBehaviour
 	{
 		if (player == null)
 			player = FindObjectOfType<PlayerBehaviour>();
-	}	
+	}
 
-    void LateUpdate()
+	Vector3 velocity = Vector3.zero;
+
+	void LateUpdate()
     {
 		Vector3 playerPos = player.transform.position;
 		Vector3 pos = transform.position;
@@ -33,6 +35,7 @@ public class CameraFollow : MonoBehaviour
 		newPosition.z = 0;
 
 
-		transform.position = Vector3.Lerp(pos, newPosition + playerOffset, speed * (Time.deltaTime));
-    }
+		//transform.position = Vector3.Lerp(pos, newPosition + playerOffset, speed * (Time.deltaTime));
+		transform.position = Vector3.SmoothDamp(pos, newPosition + playerOffset, ref velocity, speed );
+	}
 }
