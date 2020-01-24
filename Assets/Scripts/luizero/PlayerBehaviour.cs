@@ -27,21 +27,26 @@ public class PlayerBehaviour : MonoBehaviour
 		dead = false;
 	}
 
+	float inputX;
+	bool jump;
+
 	void Update()
+	{
+		inputX = Input.GetAxis("Horizontal");
+		jump = Input.GetButtonDown("Jump");
+	}
+
+	void FixedUpdate()
 	{
 		if(!dead)
 		{
-			//if (canMoveInAir)
-				Move();
-
-			Jump();
+			Move(inputX);
+			Jump(jump);
 		}
-		//canMoveInAir = true;
 	}
 
-	void Move()
-	{
-		float x = Input.GetAxis("Horizontal");
+	void Move(float x)
+	{		
 		rb.velocity = new Vector2(x * movementSpeed, rb.velocity.y);
 
 		if (x > 0)
@@ -54,11 +59,11 @@ public class PlayerBehaviour : MonoBehaviour
 
 	bool grounded;
 
-	void Jump()
+	void Jump(bool jumpButton)
 	{
 		grounded = Physics2D.OverlapBox(jumpBoxTransform.position, jumpBoxTransform.localScale, 0f, rayCastLayer);
 
-		if (grounded && Input.GetButtonDown("Jump"))
+		if (grounded && jumpButton)
 			rb.velocity = new Vector2(rb.velocity.x, jumpVelocity);
 
 		if (rb.velocity.y < 0)
