@@ -9,7 +9,7 @@ public class PlataformController : MonoBehaviour {
     public Transform A, B;
 
     private Vector3 target;
-    
+
     private void Start () {
         target = A.position;
     }
