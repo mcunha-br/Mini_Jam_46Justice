@@ -321,7 +321,7 @@ MonoBehaviour:
   jumpBoxTransform: {fileID: 4569480960086014226}
   rayCastLayer:
     serializedVersion: 2
-    m_Bits: 311
+    m_Bits: 1280
   life: 100
   movementSpeed: 8
   jumpVelocity: 10
