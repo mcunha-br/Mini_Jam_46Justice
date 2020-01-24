@@ -8,12 +8,12 @@ public class PlayerBehaviour : MonoBehaviour
 	[SerializeField] Slider lifebar;
 	[SerializeField] Transform jumpBoxTransform;
 	[SerializeField] LayerMask rayCastLayer;
-	[SerializeField] float groundCheckRange = .25f;
 	[Space]
 	[SerializeField] int life = 100;
 	[SerializeField] float movementSpeed = 8f;
 	[SerializeField] float jumpVelocity = 10f;
-	[SerializeField] float fallMultiplier = 2.5f;
+	[SerializeField] float fallMultiplier = 2f;
+	[SerializeField] float lowJumpMultiplier = 3f;
 
 	Rigidbody2D rb;
 	Animator anim;
@@ -24,7 +24,6 @@ public class PlayerBehaviour : MonoBehaviour
 		anim = GetComponentInChildren<Animator>();
 
 		lifebar.value = life;
-
 	}
 
     void Start()
@@ -38,7 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
 	void Update()
 	{
 		inputX = Input.GetAxis("Horizontal");
-		//jump = Input.GetButtonDown("Jump");
+		holdingJump = Input.GetButton("Jump");
 
 		if (Input.GetButtonDown("Jump"))
 		{
@@ -50,9 +49,6 @@ public class PlayerBehaviour : MonoBehaviour
 			jumpCoroutine = JumpDelay(0.25f);
 			StartCoroutine(jumpCoroutine);
 		}
-
-		if (Input.GetKeyDown(KeyCode.K))
-			Damage(10);
 	}
 
 	IEnumerator jumpCoroutine;
@@ -85,6 +81,7 @@ public class PlayerBehaviour : MonoBehaviour
 	}
 
 	bool grounded;
+	bool holdingJump;
 
 	void Jump(bool jumpButton)
 	{
@@ -96,6 +93,11 @@ public class PlayerBehaviour : MonoBehaviour
 		if (rb.velocity.y < 0)
 		{
 			rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+		}
+		else
+		if (rb.velocity.y > 0 && !Input.GetButton("Jump"))
+		{
+			rb.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
 		}
 
 		anim.SetBool("grounded", grounded);
