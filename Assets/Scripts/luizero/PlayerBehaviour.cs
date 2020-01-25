@@ -108,7 +108,10 @@ public class PlayerBehaviour : MonoBehaviour
 	public void Damage(int damageValue)
 	{
 		if (life <= 0)
+		{
 			dead = true;
+			gameObject.SetActive(false);
+		}
 
 		life -= damageValue;
 		lifebar.value = life;
