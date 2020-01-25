@@ -90,7 +90,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3714195835417130018}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 3714195835564412542}
   - component: {fileID: 3714195835564412543}
   - component: {fileID: 3714195835564412541}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1136,7 +1136,7 @@ GameObject:
   - component: {fileID: 3714195836446393590}
   - component: {fileID: 3714195836446393591}
   - component: {fileID: 3714195836446393589}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1390,7 +1390,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836672630218}
   - component: {fileID: 3714195836672630217}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Col (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
