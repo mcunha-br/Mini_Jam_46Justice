@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835395474727}
   - component: {fileID: 3714195835395474726}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835545058288}
   - component: {fileID: 3714195835545058303}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -300,13 +300,13 @@ GameObject:
   - component: {fileID: 3714195835649788128}
   - component: {fileID: 3714195835649788129}
   - component: {fileID: 3714195835649788143}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Espinhos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3714195835649788130
 Transform:
   m_ObjectHideFlags: 0
@@ -393,7 +393,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835654427868}
   - component: {fileID: 3714195835654427867}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -474,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835720094509}
   - component: {fileID: 3714195835720094508}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -555,7 +555,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835734611129}
   - component: {fileID: 3714195835734611128}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -636,7 +636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195835754232513}
   - component: {fileID: 3714195835754232512}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -717,7 +717,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836128689133}
   - component: {fileID: 3714195836128689132}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: G (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -798,7 +798,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836210861214}
   - component: {fileID: 3714195836210861213}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: es
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -930,7 +930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836247860056}
   - component: {fileID: 3714195836247860039}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1010,7 +1010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3714195836275182993}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Graph
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1052,7 +1052,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836409211105}
   - component: {fileID: 3714195836409211104}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1227,7 +1227,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836457222092}
   - component: {fileID: 3714195836457222091}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1308,7 +1308,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836556431424}
   - component: {fileID: 3714195836556431439}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1389,7 +1389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836810485619}
   - component: {fileID: 3714195836810485618}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1473,7 +1473,7 @@ GameObject:
   - component: {fileID: 3714195836865614335}
   - component: {fileID: 3714195836865614332}
   - component: {fileID: 3895592113828798873}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
@@ -1533,7 +1533,7 @@ MonoBehaviour:
   isDead: 0
   stats:
     name: Player
-    health: 100
+    health: 5
   difficulty: 0
   directionState: 0
   rayColliders:
@@ -1581,8 +1581,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
+  m_Size: {x: 0.5, y: 1.5}
+  m_EdgeRadius: 0.25
 --- !u!1 &3714195836901724546
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,7 +1593,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195836901724545}
   - component: {fileID: 3714195836901724544}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1674,7 +1674,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195837397012842}
   - component: {fileID: 3714195837397012841}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1755,7 +1755,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3714195837421746810}
   - component: {fileID: 3714195837421746809}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Lista (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

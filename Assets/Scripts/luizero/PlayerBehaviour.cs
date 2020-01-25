@@ -14,7 +14,7 @@ public class PlayerBehaviour : MonoBehaviour
 	[SerializeField] float jumpVelocity = 10f;
 	[SerializeField] float fallMultiplier = 2f;
 	[SerializeField] float lowJumpMultiplier = 3f;
-
+	
 	Rigidbody2D rb;
 	Animator anim;
 
@@ -80,7 +80,7 @@ public class PlayerBehaviour : MonoBehaviour
 		anim.SetBool("moving", x != 0);
 	}
 
-	bool grounded;
+	public bool grounded;
 	bool holdingJump;
 
 	void Jump(bool jumpButton)

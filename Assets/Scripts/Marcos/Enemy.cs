@@ -116,7 +116,7 @@ public class Enemy : AI, IEnemy {
 
     private void SetupStats () {
     	isDead = false;
-    	stats = new EnemyStats("Player", 100);
+    	stats = new EnemyStats("Player", stats.health);
     }
 
     public override void Patrol (Vector2 dir) {
@@ -161,16 +161,20 @@ public class Enemy : AI, IEnemy {
     }
 
     public void Demage (int dmg) {
-    	if(stats.GetHealth() <= 0){
+
+		stats.Demage(dmg);
+
+		if (stats.GetHealth() <= 0){
     		Die();
     	}
-    	stats.Demage(dmg);
     }
 
     public void Die () {
     	isDead = true;
     	countdown = 0f;
     	stats.SetHealth(0);
+
+		Destroy(gameObject);
     }
 
     void OnTriggerEnter2D (Collider2D col) {

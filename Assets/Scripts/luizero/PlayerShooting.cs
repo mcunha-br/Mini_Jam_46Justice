@@ -4,52 +4,66 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
+	public GameObject playerBulletPrefab;
+
+	public float shootSpeed;
+	public int shootDamage;
 	public float shootBreak;
-	public int shootTimes;
+
+	public float bulletLifeTime;
+
+	AudioSource audio;
 
     void Start()
     {
-		//instantiate necessary bullets
+		//instantiate necessary bullets and disable
 
-		coroutine = asd(shootBreak);
-		StartCoroutine(coroutine);
+		audio = GetComponent<AudioSource>();
 	}
 
-	bool shooting = true;
+	public bool canShoot = true;
 
     void Update()
     {
-		//shooting = Input.GetKey(KeyCode.J);
-
-		//if (!shooting && coroutine != null)
-		//	StopCoroutine(coroutine);
-
-		if (Input.GetKeyDown(KeyCode.J))
+		if (Input.GetButtonDown("Fire1") && canShoot)
 		{
-			//if (coroutine != null)
-			//	StopCoroutine(coroutine);
-
-			//coroutine = asd(shootBreak);
-			//StartCoroutine(coroutine);
+			Shoot();
+			StartCoroutine(ShootDelay(shootBreak));
 		}
     }
-	IEnumerator coroutine;
-	IEnumerator asd(float shootBreak)
+
+	IEnumerator ShootDelay(float delay)
 	{
-		while (shooting)
+		float normalizedime = 0f;
+
+		while (normalizedime <= 1f)
 		{
-			shootTimes++;
-			yield return new WaitForSeconds(shootBreak);
-		}
+			normalizedime += Time.deltaTime / delay;
+
+			if(normalizedime >= 1f) canShoot = true;
+
+			yield return null;
+		}				
 	}
 
 	void Shoot()
-	{
-		shootTimes++;
+	{		
+		InstantiateBullet();
+		audio.PlayOneShot(audio.clip);
+		canShoot = false;
 	}
 
 	void InstantiateBullet()
 	{
+		Debug.Log("shoot");
+		GameObject go = Instantiate(playerBulletPrefab, transform.position, transform.rotation);
+
+		PlayerBullet pb = go.GetComponent<PlayerBullet>();
+		pb.speed = shootSpeed;
+		pb.damage = shootDamage;
+
+		Destroy(go, bulletLifeTime);
+
 		//take from storage and enable
 	}
 
