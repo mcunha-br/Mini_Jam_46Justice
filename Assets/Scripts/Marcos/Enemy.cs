@@ -167,6 +167,7 @@ public class Enemy : AI, IEnemy {
 	    	if(countdown >= turnSecondsDir * 100){
 	    		countdown = 0f;
 	    		inPatrolling = false;
+                StopWalk();
 	    		StartCoroutine(WaitPatrolling());
 	    	}
     	}else{
@@ -177,7 +178,6 @@ public class Enemy : AI, IEnemy {
                 runAttack = false;
     		}else{
                 StopWalk();
-                animator.Play("idle", true);
     			runAttack = true;
     		}
     	}
@@ -196,6 +196,7 @@ public class Enemy : AI, IEnemy {
     private void StopWalk () {
         animator.Play("walk", false);
         animator.Play("walkbackword", false);
+        animator.Play("idle", true);
     }
 
     private IEnumerator WaitPatrolling () {
