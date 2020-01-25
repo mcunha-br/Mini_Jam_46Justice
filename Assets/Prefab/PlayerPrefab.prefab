@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 1391844129078848093}
   - component: {fileID: 3442075011826099579}
   - component: {fileID: 2551721797722741095}
+  - component: {fileID: 1435048119437387196}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -328,6 +329,14 @@ MonoBehaviour:
   fallMultiplier: 2
   lowJumpMultiplier: 3
   jump: 0
+--- !u!81 &1435048119437387196
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2053593781233521863}
+  m_Enabled: 1
 --- !u!1 &2083530141845803815
 GameObject:
   m_ObjectHideFlags: 0
@@ -1028,7 +1037,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4898539997525875259}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!114 &523981737694086010
 MonoBehaviour:
   m_ObjectHideFlags: 0
