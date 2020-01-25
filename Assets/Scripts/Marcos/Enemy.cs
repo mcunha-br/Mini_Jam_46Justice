@@ -35,7 +35,13 @@ public class Enemy : AI, IEnemy {
 	private bool runAttack = false;
 	private float jumpForce = 86.5f;
 
+    private EnemyAnimator animator;
+
     protected Enemy () {}
+
+    private void Awake () {
+        animator = GetComponent<EnemyAnimator>();
+    }
 
     private void Start()  {
     	SetupStats();
@@ -148,6 +154,8 @@ public class Enemy : AI, IEnemy {
     	if(!playerDetected){
     		//if(!rayColliders[0].grounded && rayColliders[1].grounded){
 	    		transform.Translate((dir * GetSpeed()) * Time.deltaTime);
+                RunWalk();
+                animator.Play("idle", false);
 	    	//}
 	    	countdown++;
 	    	if(countdown >= turnSecondsDir * 100){
@@ -158,11 +166,30 @@ public class Enemy : AI, IEnemy {
     	}else{
     		if(Vector2.Distance(transform.position, target.position) > attackDistance){
     			transform.position = Vector3.Lerp(transform.position, target.position, GetSpeed() * 0.2f * Time.deltaTime);
-    			runAttack = false;
+                RunWalk();
+    			animator.Play("idle", false);
+                runAttack = false;
     		}else{
+                StopWalk();
+                animator.Play("idle", true);
     			runAttack = true;
     		}
     	}
+    }
+
+    private void RunWalk () {
+        if(directionState == DirectionState.RIGHT){
+            animator.Play("walk", true);
+            animator.Play("walkbackword", false);
+        }else if (directionState == DirectionState.LEFT){
+            animator.Play("walk", false);
+            animator.Play("walkbackword", true);
+        }
+    }
+
+    private void StopWalk () {
+        animator.Play("walk", false);
+        animator.Play("walkbackword", false);
     }
 
     private IEnumerator WaitPatrolling () {
@@ -176,11 +203,13 @@ public class Enemy : AI, IEnemy {
     		if(directionState == DirectionState.RIGHT){
     			GameObject b = Instantiate(bulletObject, bulletSpawn.transform.position, Quaternion.identity);
     			GameObject bs = Instantiate(spawnSound, transform.position, Quaternion.identity);
+                animator.Play("shot");
                 b.gameObject.GetComponent<BulletTest>().inverse = false;
     			CancelInvoke();
     		}else if (directionState == DirectionState.LEFT){
     			GameObject b = Instantiate(bulletObject, bulletSpawn.transform.position, Quaternion.identity);
     			GameObject bs = Instantiate(spawnSound, transform.position, Quaternion.identity);
+                animator.Play("shot");
                 b.gameObject.GetComponent<BulletTest>().inverse = true;
     			CancelInvoke();
     		}
