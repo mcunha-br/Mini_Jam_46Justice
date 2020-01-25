@@ -1534,7 +1534,7 @@ MonoBehaviour:
   stats:
     name: Player
     health: 5
-  difficulty: 0
+  difficulty: 2
   directionState: 0
   rayColliders:
   - {fileID: 3714195836446393589}
