@@ -24,6 +24,10 @@ public class Enemy : AI, IEnemy {
     public GameObject gunGraph;
     public GameObject spawnSound;
 
+    [Header("Others")]
+    public GameObject eyes;
+    public Transform[]eyePos = new Transform[2];
+
 	private const string playerTag = "Player";
 	private byte direction;
 	private float countdown = 0f;
@@ -97,9 +101,11 @@ public class Enemy : AI, IEnemy {
             if(directionState == DirectionState.RIGHT){
                 gun.transform.position = gunPos[0].position;
                 gun.transform.rotation = new Quaternion(0, 0, 0, 0);
+                eyes.transform.position = Vector3.Lerp(eyes.transform.position, eyePos[0].transform.position, 10f * Time.deltaTime);
             }else if(directionState == DirectionState.LEFT){
                 gun.transform.position = gunPos[1].position;
                 gun.transform.rotation = new Quaternion(0, 180, 0, 0);
+                eyes.transform.position = Vector3.Lerp(eyes.transform.position, eyePos[1].transform.position, 10f * Time.deltaTime);
             }
             float force = 87.5f;
             if(head.grounded){
@@ -161,6 +167,7 @@ public class Enemy : AI, IEnemy {
 	    	if(countdown >= turnSecondsDir * 100){
 	    		countdown = 0f;
 	    		inPatrolling = false;
+                StopWalk();
 	    		StartCoroutine(WaitPatrolling());
 	    	}
     	}else{
@@ -171,7 +178,6 @@ public class Enemy : AI, IEnemy {
                 runAttack = false;
     		}else{
                 StopWalk();
-                animator.Play("idle", true);
     			runAttack = true;
     		}
     	}
@@ -190,6 +196,7 @@ public class Enemy : AI, IEnemy {
     private void StopWalk () {
         animator.Play("walk", false);
         animator.Play("walkbackword", false);
+        animator.Play("idle", true);
     }
 
     private IEnumerator WaitPatrolling () {
