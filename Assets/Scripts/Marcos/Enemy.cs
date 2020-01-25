@@ -14,9 +14,15 @@ public class Enemy : AI, IEnemy {
 	[Header("Axis State Patrol")]
 	public DirectionState directionState;
 	public EnemyRayCollider[] rayColliders = new EnemyRayCollider[2];
+    public EnemyRayCollider head;
 
 	[Header("Bullet")]
+    public Transform[] gunPos = new Transform[2];
 	public GameObject bulletObject;
+    public GameObject bulletSpawn;
+    public GameObject gun;
+    public GameObject gunGraph;
+    public GameObject spawnSound;
 
 	private const string playerTag = "Player";
 	private byte direction;
@@ -65,7 +71,7 @@ public class Enemy : AI, IEnemy {
                 if(difficulty == EnemyDifficulty.EASY){
 				    InvokeRepeating("AtackPlayer", 1.3f, 0.3f);
                 }else if(difficulty == EnemyDifficulty.MEDIUM){
-                    InvokeRepeating("AtackPlayer", 8f, 0.3f);
+                    InvokeRepeating("AtackPlayer", .8f, 0.3f);
                 }else if(difficulty == EnemyDifficulty.HARD){
                     InvokeRepeating("AtackPlayer", .4f, 0.3f);
                 }
@@ -82,6 +88,25 @@ public class Enemy : AI, IEnemy {
 			if(!rayColliders[0].grounded && rayColliders[1].grounded){
 				Jump();
 			}
+            if(directionState == DirectionState.RIGHT){
+                gun.transform.position = gunPos[0].position;
+                gun.transform.rotation = new Quaternion(0, 0, 0, 0);
+            }else if(directionState == DirectionState.LEFT){
+                gun.transform.position = gunPos[1].position;
+                gun.transform.rotation = new Quaternion(0, 180, 0, 0);
+            }
+            float force = 87.5f;
+            if(head.grounded){
+                if(head.target){
+                    if(head.target.gameObject.tag == "Player"){
+                        if(directionState == DirectionState.RIGHT){
+                            head.target.gameObject.GetComponent<Rigidbody2D>().AddForce((Vector3.up + Vector3.right) * force, ForceMode2D.Force);
+                        }else if(directionState == DirectionState.LEFT){
+                            head.target.gameObject.GetComponent<Rigidbody2D>().AddForce((Vector3.up + Vector3.left) * force, ForceMode2D.Force);
+                        }
+                    }
+                }
+            }
 		}
     }
 
@@ -149,12 +174,14 @@ public class Enemy : AI, IEnemy {
     private void AtackPlayer () {
     	if(target){
     		if(directionState == DirectionState.RIGHT){
-    			GameObject b = Instantiate(bulletObject, transform.position, transform.rotation);
-    			b.gameObject.GetComponent<BulletTest>().inverse = false;
+    			GameObject b = Instantiate(bulletObject, bulletSpawn.transform.position, Quaternion.identity);
+    			GameObject bs = Instantiate(spawnSound, transform.position, Quaternion.identity);
+                b.gameObject.GetComponent<BulletTest>().inverse = false;
     			CancelInvoke();
     		}else if (directionState == DirectionState.LEFT){
-    			GameObject b = Instantiate(bulletObject, transform.position, Quaternion.identity);
-    			b.gameObject.GetComponent<BulletTest>().inverse = true;
+    			GameObject b = Instantiate(bulletObject, bulletSpawn.transform.position, Quaternion.identity);
+    			GameObject bs = Instantiate(spawnSound, transform.position, Quaternion.identity);
+                b.gameObject.GetComponent<BulletTest>().inverse = true;
     			CancelInvoke();
     		}
     	}
