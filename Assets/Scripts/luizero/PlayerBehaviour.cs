@@ -17,6 +17,7 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	Rigidbody2D rb;
 	Animator anim;
+	private Vector2 startPos;
 
 	void Awake()
 	{
@@ -28,7 +29,8 @@ public class PlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-		dead = false;			
+		dead = false;		
+		startPos = transform.position;	
 	}
 
 	float inputX;
@@ -107,14 +109,21 @@ public class PlayerBehaviour : MonoBehaviour
 
 	public void Damage(int damageValue)
 	{
-		if (life <= 0)
-		{
-			dead = true;
-			gameObject.SetActive(false);
-		}
-
 		life -= damageValue;
 		lifebar.value = life;
+
+		if (life <= 0)
+		{
+			transform.position = startPos;
+			life = 100;
+			lifebar.value = life;
+		}
+
+	}
+
+
+	public void RestartGame() {
+
 	}
 
 }

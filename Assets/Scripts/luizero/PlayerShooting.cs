@@ -55,7 +55,6 @@ public class PlayerShooting : MonoBehaviour
 
 	void InstantiateBullet()
 	{
-		Debug.Log("shoot");
 		GameObject go = Instantiate(playerBulletPrefab, transform.position, transform.rotation);
 
 		PlayerBullet pb = go.GetComponent<PlayerBullet>();
