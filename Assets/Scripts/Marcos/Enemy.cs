@@ -60,26 +60,16 @@ public class Enemy : AI, IEnemy {
     	if(!isDead){
 	    	if(inPatrolling){
 		    	if(direction %2 == 0){
-		    		//if(rayColliders[0].grounded && rayColliders[1].grounded){
-						//Patrol(Vector3.left);
-						//directionState = DirectionState.LEFT;
-					//}else{
-						Patrol(Vector3.right);
-						directionState = DirectionState.RIGHT;
-					//}
+    				Patrol(Vector3.right);
+    				directionState = DirectionState.RIGHT;
 				}else{
-					//if(rayColliders[0].grounded && rayColliders[1].grounded){
-						//Patrol(Vector3.right);
-						//directionState = DirectionState.RIGHT;
-					//}else{
-						Patrol(Vector3.left);
-						directionState = DirectionState.LEFT;
-					//}
+				    Patrol(Vector3.left);
+					directionState = DirectionState.LEFT;
 				}
 			}
 			if(playerDetected && runAttack){
                 if(difficulty == EnemyDifficulty.EASY){
-				    InvokeRepeating("AtackPlayer", 1.3f, 0.3f);
+    			    InvokeRepeating("AtackPlayer", 1.3f, 0.3f);
                 }else if(difficulty == EnemyDifficulty.MEDIUM){
                     InvokeRepeating("AtackPlayer", .8f, 0.3f);
                 }else if(difficulty == EnemyDifficulty.HARD){
@@ -88,10 +78,8 @@ public class Enemy : AI, IEnemy {
 			}
 			if(target){
 				if (target.position.x < transform.position.x){
-				   //print("Player left");
 				   directionState = DirectionState.LEFT;
 				}else{
-				   //print("Player right");
 				   directionState = DirectionState.RIGHT;
 				}
 			}
@@ -158,11 +146,9 @@ public class Enemy : AI, IEnemy {
 
     public override void Patrol (Vector2 dir) {
     	if(!playerDetected){
-    		//if(!rayColliders[0].grounded && rayColliders[1].grounded){
-	    		transform.Translate((dir * GetSpeed()) * Time.deltaTime);
-                RunWalk();
-                animator.Play("idle", false);
-	    	//}
+	    	transform.Translate((dir * GetSpeed()) * Time.deltaTime);
+            RunWalk();
+            animator.Play("idle", false);
 	    	countdown++;
 	    	if(countdown >= turnSecondsDir * 100){
 	    		countdown = 0f;
@@ -224,9 +210,7 @@ public class Enemy : AI, IEnemy {
     }
 
     public void Demage (int dmg) {
-
 		stats.Demage(dmg);
-
 		if (stats.GetHealth() <= 0){
     		Die();
     	}
@@ -236,7 +220,6 @@ public class Enemy : AI, IEnemy {
     	isDead = true;
     	countdown = 0f;
     	stats.SetHealth(0);
-
 		Destroy(gameObject);
     }
 
@@ -244,7 +227,6 @@ public class Enemy : AI, IEnemy {
     	if(col.gameObject.tag == playerTag){
     		playerDetected = true;
     		target = col.transform;
-    		//print("Player detectado!");
     	}
     }
 
@@ -266,7 +248,6 @@ public class Enemy : AI, IEnemy {
 public class EnemyStats {
 
 	private const int DEFAULT_HEALTH = 100;
-
 	public string name;
 	public int health;
 
@@ -283,7 +264,6 @@ public class EnemyStats {
 	}
 
 	public void Demage (int dmg) {health -= dmg;}
-
 	public void SetHealth (int health) {this.health = health;}
 	public int GetHealth () {return health;}
 

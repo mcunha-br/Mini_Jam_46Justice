@@ -2359,6 +2359,7 @@ MonoBehaviour:
   - {fileID: 3714195836446393589}
   - {fileID: 3714195835564412541}
   head: {fileID: 859356898325338273}
+  colPrevent: {fileID: 0}
   gunPos:
   - {fileID: 679660252}
   - {fileID: 1236740311}
