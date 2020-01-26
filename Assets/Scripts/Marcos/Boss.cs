@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Boss : AI , IBoss {
 
@@ -68,6 +69,8 @@ public class Boss : AI , IBoss {
     public void Die () {
     	isDead = true;
     	stats.SetHealth(0);
+
+		SceneManager.LoadScene("Congratulations");
     }
 
     public override void Patrol (Vector2 dir) {

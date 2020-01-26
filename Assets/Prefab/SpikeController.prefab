@@ -113,6 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1af329f84288e34eaaaf349dbe2a1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 30
 --- !u!1 &885184546848815454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1091,6 +1092,7 @@ GameObject:
   - component: {fileID: 4652487488136305275}
   - component: {fileID: 4652487488136305273}
   - component: {fileID: 573345182008901021}
+  - component: {fileID: 5950304909378167044}
   m_Layer: 0
   m_Name: SpikeController
   m_TagString: Untagged
@@ -1229,6 +1231,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5950304909378167044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4652487488136305272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 850f3bbad8e824f41933e006c812d7a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: 573345182008901021}
 --- !u!1 &4964676745762153778
 GameObject:
   m_ObjectHideFlags: 0
