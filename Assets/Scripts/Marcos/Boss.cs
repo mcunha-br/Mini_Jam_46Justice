@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Boss : AI , IBoss {
+public class Boss : AI , IEnemy {
 
 	public bool isDead;
 
@@ -59,7 +59,7 @@ public class Boss : AI , IBoss {
         return this;
     }
 
-    public void Damage (int damage) {
+    public void Demage (int damage) {
     	if(stats.GetHealth() <= 0){
     		Die();
     	}
@@ -104,7 +104,6 @@ public class Boss : AI , IBoss {
     		playerDetected = false;
     	}
     }
-
 }
 
 [System.Serializable]
