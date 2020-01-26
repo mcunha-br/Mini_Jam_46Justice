@@ -2,12 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public partial class Menu : MonoBehaviour, IMenu {
 
+	public Slider slider;
 	public View quitGameContainer;
 	public View creditsGameContainer;
+	public View settingsGameContainer;
 
 	private void Start () {
 		Dispose(() => {
@@ -15,20 +18,38 @@ public partial class Menu : MonoBehaviour, IMenu {
 			var main = new View(true/*container is master*/){container = this.gameObject};
 			quitGameContainer.SetEnable(false);
 			creditsGameContainer.SetEnable(false);
+			settingsGameContainer.SetEnable(false);
 		});
+		if(PlayerPrefs.GetFloat("global_volumes") != null){
+			slider.value = PlayerPrefs.GetFloat("global_volumes");
+		}
 	}
 
 	//Events
     public void Jogar () {
-    					
+    	SceneManager.LoadScene("level");	
     }
 
     public void Creditos () {
+    	Mask(true);
+    	creditsGameContainer.SetEnable(true);
+    }
 
+    public void CloseCredits () {
+    	Mask(false);
+    	creditsGameContainer.SetEnable(false);
     }
 
     public void Opcoes () {
+    	Mask(true);
+    	settingsGameContainer.SetEnable(true);
+    }
 
+    public void SaveSettings () {
+    	PlayerPrefs.SetFloat("global_volumes", slider.value);
+    	print("Volume: " + PlayerPrefs.GetFloat("global_volumes"));
+    	Mask(false);
+    	settingsGameContainer.SetEnable(false);
     }
 
     public void Sair () {
