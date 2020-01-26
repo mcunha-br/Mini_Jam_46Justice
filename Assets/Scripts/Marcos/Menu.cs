@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
@@ -9,22 +10,27 @@ public partial class Menu : MonoBehaviour, IMenu {
 	public View creditsGameContainer;
 
 	private void Start () {
-		Mask(false);
-		var main = new View(true/*container is master*/){container = this.gameObject};
-		quitGameContainer.SetEnable(false);
-		creditsGameContainer.SetEnable(false);
+		Dispose(() => {
+			Mask(false);
+			var main = new View(true/*container is master*/){container = this.gameObject};
+			quitGameContainer.SetEnable(false);
+			creditsGameContainer.SetEnable(false);
+		});
 	}
 
 	//Events
     public void Jogar () {
-    	
+    					
     }
+
     public void Creditos () {
 
     }
+
     public void Opcoes () {
 
     }
+
     public void Sair () {
     	Mask(true);
     	quitGameContainer.SetEnable(true);
@@ -46,7 +52,12 @@ public partial class Menu : MonoBehaviour, IMenu {
 
     public GameObject GetMask () {return ((GameObject.Find("Mask")) ? GameObject.Find("Mask"): null);}
 
-    new public void Dispose () {}
+    new public void Dispose (Action action) {
+    	action.Invoke();
+    }
+
+    [Disposed]
+    protected async void OnDisposed () {}
 
 }
 
@@ -59,7 +70,7 @@ public interface IMenuEventListener {
 	void Creditos();
 	void Opcoes();
 	void Sair();
-	void Dispose ();
+	void Dispose (Action action);
 }
 
 [System.Serializable]
@@ -120,3 +131,4 @@ public abstract class ViewHolder <Type> {
 
 }
 
+public class DisposedAttribute : System.Attribute {}
