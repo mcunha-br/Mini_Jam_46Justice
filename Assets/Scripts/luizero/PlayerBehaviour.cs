@@ -17,7 +17,7 @@ public class PlayerBehaviour : MonoBehaviour
 	
 	Rigidbody2D rb;
 	Animator anim;
-	private Vector2 startPos;
+	public Vector2 startPos { get; set;}
 
 	void Awake()
 	{
