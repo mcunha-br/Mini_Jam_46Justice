@@ -41,7 +41,7 @@ public class Boss : AI , IEnemy {
 					directionState = DirectionState.LEFT;
 		    	}
 		        if(target && playerDetected){
-		        	 InvokeRepeating("Shot", .4f, 0.3f);
+		        	 InvokeRepeating("Shot", .4f, 1f);
 		        }
 	    	}
 	    	if(target){
